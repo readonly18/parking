@@ -10,5 +10,14 @@
 composer install
 php artisan migrate
 php artisan db:seed
+```
 
+Настроить зависимости Javascript и CSS
+```bash
+npm install
+npm run dev
+```
+Запустить сервер
+```bash
 php artisan serve
+```
