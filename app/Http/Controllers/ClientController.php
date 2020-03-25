@@ -27,7 +27,7 @@ class ClientController extends Controller
 
     private function createClient(Request $request)
     {
-        $address = $request->has('address') ? $request->address : null; 
+        $address = $request->has('address') ? $request->address : null;
         $id = DB::table('clients')->insertGetId(
             [
                 'surname'       => $request->surname,
@@ -49,12 +49,18 @@ class ClientController extends Controller
         ]);
     }
 
-    public function getPagination()
+    public function getPaginationData()
     {
         $clientsAutos = DB::table('clients')
                             ->join('autos', 'clients.id', '=', 'autos.client_id')
                             ->paginate(15);
-        return view('client.index', ['clientsAutos' => $clientsAutos]);
+        return response()->json($clientsAutos);
+        //return view('client.index', ['clientsAutos' => $clientsAutos]);
+    }
+
+    public function getPaginationPage()
+    {
+        return view('client.index');
     }
 
     public function getCreatePage()
@@ -63,7 +69,7 @@ class ClientController extends Controller
     }
 
     public function postClientWithAutos(Request $request)
-    {   
+    {
         $this->validateRequest($request);
         $this->createClient($request);
 

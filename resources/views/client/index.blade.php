@@ -21,16 +21,17 @@
     </tr>
   </thead>
   <tbody>
-@foreach ($clientsAutos as $clientAuto)
-    <tr>
-        <td> {{ $clientAuto->name }} </td>
-        <td> {{ $clientAuto->model }} </td>
-        <td> {{ $clientAuto->plate_number }} </td>
-        <td> <button type="button" class="btn btn-primary" id="update-{{ $clientAuto->id }}">Изменить</button> </td>
-        <td> <button type="button" class="btn btn-danger" id="delete-{{ $clientAuto->id }}">Удалить</button> </td>
-    </tr>
-@endforeach
+<tr v-for="clientAuto in clientsAutos.data">
+    <td> @{{ clientAuto.name }} </td>
+    <td> @{{ clientAuto.model }} </td>
+    <td> @{{ clientAuto.plate_number }} </td>
+    <td> <button type="button" class="btn btn-primary" id="update-@{{ clientAuto.id }}">Изменить</button> </td>
+    <td> <button type="button" class="btn btn-danger" id="delete-@{{ clientAuto.id }}">Удалить</button> </td>
+</tr>
   </tbody>
 </table>
-{{ $clientsAutos->links() }}
+<vue-pagination :pagination = "clientsAutos"
+                @paginate = "getPagination()"
+                :offset = "15">
+</vue-pagination>
 @endsection

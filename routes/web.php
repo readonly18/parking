@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', 'ClientController@getPagination')->name('home');
+Route::get('/clients/autos', 'ClientController@getPaginationData');
+Route::get('/', 'ClientController@getPaginationPage')->name('home');
 Route::get('clients', 'ClientController@getCreatePage');
 Route::get('autos', 'AutoController@getCreatePage');
 Route::get('autos/{id}', 'AutoController@getAutoWithClient');

@@ -21,8 +21,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
         </div>
     </nav>
-    <div class="container">
-      @yield('content')
+    <div id="app">
+        <div class="container">
+          @yield('content')
+        </div>
     </div>
   </body>
 </html>
