@@ -37428,11 +37428,12 @@ var render = function() {
     { staticClass: "pagination" },
     [
       _vm.pagination.current_page > 1
-        ? _c("li", [
+        ? _c("li", { staticClass: "page-item" }, [
             _c(
               "a",
               {
-                attrs: { href: "javascript:void(0)", "aria-label": "Previous" },
+                staticClass: "page-link",
+                attrs: { href: "#", "aria-label": "Previous" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -37453,7 +37454,8 @@ var render = function() {
             _c(
               "a",
               {
-                attrs: { href: "javascript:void(0)" },
+                staticClass: "page-link",
+                attrs: { href: "#" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -37468,11 +37470,12 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm.pagination.current_page < _vm.pagination.last_page
-        ? _c("li", [
+        ? _c("li", { staticClass: "page-item" }, [
             _c(
               "a",
               {
-                attrs: { href: "javascript:void(0)", "aria-label": "Next" },
+                staticClass: "page-link",
+                attrs: { href: "#", "aria-label": "Next" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
