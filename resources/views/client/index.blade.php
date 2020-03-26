@@ -10,6 +10,5 @@
   </div>
 </div>
 <br>
-    <clients-autos-table></clients-autos-table>
-{{--    <example-component></example-component>--}}
+<clients-autos-table></clients-autos-table>
 @endsection

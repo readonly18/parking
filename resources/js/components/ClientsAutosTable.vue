@@ -39,13 +39,13 @@
                     per_page: 15,
                     from: 1,
                     to: 0,
-                    current_page: 1
+                    current_page: 1,
+                    data: []
                 },
                 offset: 15
             }
         },
         created() {
-            console.log('t');
             this.getPagination();
         },
         components: {
@@ -69,6 +69,7 @@
                     .catch(() => {
                         console.log(`Error by delete ${autoId} car`);
                     });
+
             }
         }
     }
