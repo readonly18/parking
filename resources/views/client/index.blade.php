@@ -25,8 +25,8 @@
     <td> @{{ clientAuto.name }} </td>
     <td> @{{ clientAuto.model }} </td>
     <td> @{{ clientAuto.plate_number }} </td>
-    <td> <button type="button" class="btn btn-primary" id="update-@{{ clientAuto.id }}">Изменить</button> </td>
-    <td> <button type="button" class="btn btn-danger" id="delete-@{{ clientAuto.id }}">Удалить</button> </td>
+    <td> <button v-on:click="updateClientAuto(clientAuto.id)" type="button" class="btn btn-primary">Изменить</button> </td>
+    <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
 </tr>
   </tbody>
 </table>

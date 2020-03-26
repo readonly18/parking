@@ -1,4 +1,4 @@
-import VuePagination from './components/pagination';
+import VuePagination from './components/Pagination';
 
 const  app = new Vue({
     el: '#app',
@@ -26,6 +26,17 @@ const  app = new Vue({
                 })
                 .catch(() => {
                     console.log('handle server error from here');
+                });
+        },
+        deleteClientAuto(autoId) {
+            axios.delete(`/autos/${autoId}`)
+                .then(() => {
+                    this.getPagination();
+                    console.log(`success delete ${autoId}`);
+                }
+                )
+                .catch(() => {
+                    console.log(`Error by delete ${autoId} car`);
                 });
         }
     }
