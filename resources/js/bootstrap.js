@@ -27,3 +27,8 @@ Vue.component(
     'clients-autos-table',
     require('./components/ClientsAutosTable').default
 );
+
+Vue.component(
+    'cients-autos-update',
+    require('./components/ClientsAutosUpdate').default,
+);

@@ -15,7 +15,9 @@
                 <td> {{ clientAuto.name }} </td>
                 <td> {{ clientAuto.model }} </td>
                 <td> {{ clientAuto.plate_number }} </td>
-                <td> <button v-on:click="updateClientAuto(clientAuto.id)" type="button" class="btn btn-primary">Изменить</button> </td>
+<!--                <td> <button v-on:click="updateClientAuto(clientAuto.id)" type="button" class="btn btn-primary">Изменить</button> </td>-->
+<!--                <td> <a class="btn btn-info" v-bind:href="'/autos/' + clientAuto.id" role="button">Новый клиент</a></td>-->
+                <router-link to="{path: '/autos/' + clientAuto.id"}>Обновить</router-link>
                 <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
             </tr>
             </tbody>
@@ -29,9 +31,20 @@
 
 <script>
     import VuePagination from "./Pagination";
+    import ClientsAutosUpdate from "./ClientsAutosUpdate";
+    import VueRouter from 'vue-router'
+
+    const routes = [
+        {path: '/autos/{id}'},
+    ]
+
+    const router = new VueRouter({
+        routes
+    })
 
     export default {
         name: "ClientsAutosTable",
+        router,
         data: function () {
             return {
                 clientsAutos: {
@@ -50,6 +63,7 @@
         },
         components: {
             VuePagination,
+            ClientsAutosUpdate
         },
         methods: {
             getPagination() {
@@ -70,7 +84,11 @@
                         console.log(`Error by delete ${autoId} car`);
                     });
 
-            }
+            },
         }
     }
 </script>
+
+<style scoped>
+
+</style>
