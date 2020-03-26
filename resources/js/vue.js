@@ -1,3 +1,5 @@
+import VuePagination from './components/pagination';
+
 const  app = new Vue({
     el: '#app',
     data: {

@@ -19,7 +19,6 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import VuePagination from './components/pagination.vue';
 import axios from 'axios';
 
 window.Vue = require('vue');
