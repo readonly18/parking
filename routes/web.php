@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/clients/autos', 'ClientController@getPaginationData');
 Route::get('/', 'ClientController@getPaginationPage')->name('home');
-Route::get('clients', 'ClientController@getCreatePage');
-Route::get('autos', 'AutoController@getCreatePage');
-Route::get('autos/{id}', 'AutoController@getAutoWithClient');
-Route::post('autos', 'AutoController@postAuto');
-Route::post('clients', 'ClientController@postClientWithAutos');
-Route::put('autos/{id}', 'AutoController@putAutoWithClient');
-Route::delete('autos/{id}', 'AutoController@Delete');
+Route::get('/clients/create', 'ClientController@getCreatePage');
+Route::get('/autos/create', 'AutoController@getCreatePage');
+Route::get('/autos/update', 'AutoController@getUpdatePage');
+Route::get('/autos/{id}', 'AutoController@getAutoWithClientData');
+Route::post('/autos', 'AutoController@postAuto');
+Route::post('/clients', 'ClientController@postClientWithAutos');
+Route::put('/autos/{id}', 'AutoController@putAutoWithClient');
+Route::delete('/autos/{id}', 'AutoController@Delete');

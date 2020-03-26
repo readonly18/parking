@@ -136,7 +136,7 @@ class AutoController extends Controller
         return redirect()->route('home');
     }
 
-    public function getAutoWithClient($id)
+    public function getAutoWithClientData($id)
     {
         if(!$this->validateAutoId($id))
             return redirect()->route('home');
@@ -144,7 +144,13 @@ class AutoController extends Controller
         $clientId = DB::table('autos')->where('id', '=', $id)->pluck('client_id')->first();
         $autoClient['client'] = DB::table('clients')->where('id', '=', $clientId)->get();
         $autoClient['auto'] = DB::table('autos')->where('id', '=', $id)->get();
-        return view('auto.update', ['autoClient' => $autoClient]);
+        //return view('auto.update');
+        return response()->json($autoClient);
+    }
+
+    public function getUpdatePage()
+    {
+        return view('auto.update');
     }
 
     public function putAutoWithClient(Request $request, $id)
