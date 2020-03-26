@@ -31,6 +31,6 @@ axios.defaults.headers.common = {
 };
 
 Vue.component(
-    'example-component',
-    require('./components/ExampleComponent.vue').default
+    'clients-autos-table',
+    require('./components/ClientsAutosTable').default
 );

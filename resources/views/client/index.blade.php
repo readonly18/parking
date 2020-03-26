@@ -10,28 +10,6 @@
   </div>
 </div>
 <br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ФИО</th>
-      <th scope="col">Авто</th>
-      <th scope="col">Номер</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-<tr v-for="clientAuto in clientsAutos.data">
-    <td> @{{ clientAuto.name }} </td>
-    <td> @{{ clientAuto.model }} </td>
-    <td> @{{ clientAuto.plate_number }} </td>
-    <td> <button v-on:click="updateClientAuto(clientAuto.id)" type="button" class="btn btn-primary">Изменить</button> </td>
-    <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
-</tr>
-  </tbody>
-</table>
-<vue-pagination :pagination = "clientsAutos"
-                @paginate = "getPagination()"
-                :offset = "15">
-</vue-pagination>
+    <clients-autos-table></clients-autos-table>
+{{--    <example-component></example-component>--}}
 @endsection
