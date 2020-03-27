@@ -13,22 +13,10 @@ window._ = require('lodash');
  */
 
 import axios from 'axios';
-
-window.Vue = require('vue');
-
 window.axios = require('axios');
-
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
-Vue.component(
-    'clients-autos-table',
-    require('./components/ClientsAutosTable').default
-);
-
-Vue.component(
-    'cients-autos-update',
-    require('./components/ClientsAutosUpdate').default,
-);
+require('./vue');

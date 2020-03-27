@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\DB;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/{any?}', 'ClientController@getPaginationPage')->name('home');
 Route::get('/clients/autos', 'ClientController@getPaginationData');
-Route::get('/', 'ClientController@getPaginationPage')->name('home');
-Route::get('/clients/create', 'ClientController@getCreatePage');
-Route::get('/autos/create', 'AutoController@getCreatePage');
-Route::get('/autos/update', 'AutoController@getUpdatePage');
-Route::get('/autos/{id}', 'AutoController@getAutoWithClientData');
-Route::post('/autos', 'AutoController@postAuto');
-Route::post('/clients', 'ClientController@postClientWithAutos');
-Route::put('/autos/{id}', 'AutoController@putAutoWithClient');
-Route::delete('/autos/{id}', 'AutoController@Delete');
+//Route::get('/clients/create', 'ClientController@getCreatePage');
+//Route::get('/autos/create', 'AutoController@getCreatePage');
+//Route::get('/autos/update', 'AutoController@getUpdatePage');
+//Route::get('/autos/{id}', 'AutoController@getAutoWithClientData');
+//Route::post('/autos', 'AutoController@postAuto');
+//Route::post('/clients', 'ClientController@postClientWithAutos');
+//Route::put('/autos/{id}', 'AutoController@putAutoWithClient');
+//Route::delete('/autos/{id}', 'AutoController@Delete');
