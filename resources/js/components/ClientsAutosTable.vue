@@ -1,5 +1,16 @@
 <template>
     <div>
+        <h3>Клиенты</h3>
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group mr-2" role="group">
+                <a class="btn btn-info " href="/clients" role="button">Новый клиент</a>
+            </div>
+            <div class="btn-group mr-2" role="group">
+                <a class="btn btn-info " href="/autos" role="button">Новый автомобиль</a>
+            </div>
+        </div>
+        <br>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -17,8 +28,10 @@
                 <td> {{ clientAuto.plate_number }} </td>
 <!--                <td> <button v-on:click="updateClientAuto(clientAuto.id)" type="button" class="btn btn-primary">Изменить</button> </td>-->
 <!--                <td> <a class="btn btn-info" v-bind:href="'/autos/' + clientAuto.id" role="button">Новый клиент</a></td>-->
-                <router-link to="{path: '/autos/' + clientAuto.id"}>Обновить</router-link>
-                <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
+                <div class="btn-toolbar" role="toolbar">
+                    <td> <router-link :to="{path: '/autos', query: {id: clientAuto.id}}" class="btn btn-primary">Обновить</router-link> </td>
+                    <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
+                </div>
             </tr>
             </tbody>
         </table>
@@ -35,7 +48,7 @@
     import VueRouter from 'vue-router'
 
     const routes = [
-        {path: '/autos/{id}'},
+        {path: '/autos'},
     ]
 
     const router = new VueRouter({
