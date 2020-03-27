@@ -44,7 +44,7 @@
 
 <script>
     import VuePagination from "./Pagination";
-    import ClientsAutosUpdate from "./ClientsAutosUpdate";
+    import ClientAutoUpdate from "./ClientAutoUpdate";
     import VueRouter from 'vue-router'
 
     const routes = [
@@ -76,7 +76,7 @@
         },
         components: {
             VuePagination,
-            ClientsAutosUpdate
+            ClientAutoUpdate
         },
         methods: {
             getPagination() {
