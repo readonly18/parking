@@ -3,10 +3,12 @@
         <h3>Клиенты</h3>
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group mr-2" role="group">
-                <a class="btn btn-info " href="/clients" role="button">Новый клиент</a>
+<!--                <a class="btn btn-info " href="/clients" role="button">Новый клиент</a>-->
+                <router-link :to="{path: '/clients'}" class="btn btn-info">Новый клиент</router-link>
             </div>
             <div class="btn-group mr-2" role="group">
-                <a class="btn btn-info " href="/autos" role="button">Новый автомобиль</a>
+<!--                <a class="btn btn-info " href="/autos" role="button">Новый автомобиль</a>-->
+                <router-link :to="{path: '/autos'}" class="btn btn-info">Новый автомобиль</router-link>
             </div>
         </div>
         <br>

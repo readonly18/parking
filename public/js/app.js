@@ -2029,6 +2029,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ClientsAutosTable",
@@ -19856,12 +19858,44 @@ var render = function() {
     [
       _c("h3", [_vm._v("Клиенты")]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "btn-toolbar", attrs: { role: "toolbar" } }, [
+        _c(
+          "div",
+          { staticClass: "btn-group mr-2", attrs: { role: "group" } },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info",
+                attrs: { to: { path: "/clients" } }
+              },
+              [_vm._v("Новый клиент")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "btn-group mr-2", attrs: { role: "group" } },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info",
+                attrs: { to: { path: "/autos" } }
+              },
+              [_vm._v("Новый автомобиль")]
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
       _c("table", { staticClass: "table table-striped" }, [
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "tbody",
@@ -19930,38 +19964,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "btn-toolbar", attrs: { role: "toolbar" } },
-      [
-        _c("div", { staticClass: "btn-group mr-2", attrs: { role: "group" } }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-info ",
-              attrs: { href: "/clients", role: "button" }
-            },
-            [_vm._v("Новый клиент")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "btn-group mr-2", attrs: { role: "group" } }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-info ",
-              attrs: { href: "/autos", role: "button" }
-            },
-            [_vm._v("Новый автомобиль")]
-          )
-        ])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
