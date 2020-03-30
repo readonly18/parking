@@ -1912,6 +1912,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AutoCreate"
 });
@@ -1931,6 +1933,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AutoDelete"
 });
@@ -1946,6 +1950,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -1987,7 +1993,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
-//
 //
 //
 //
@@ -19750,9 +19755,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("Auto create")])])
+  }
+]
 render._withStripped = true
 
 
@@ -19774,9 +19786,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("Auto Delete")])])
+  }
+]
 render._withStripped = true
 
 
@@ -19798,9 +19817,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("Client Auto Create")])])
+  }
+]
 render._withStripped = true
 
 
@@ -19829,7 +19855,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("hello")])])
+    return _c("div", [_c("h1", [_vm._v("Client Auto Update")])])
   }
 ]
 render._withStripped = true
@@ -19919,7 +19945,10 @@ var render = function() {
                         {
                           staticClass: "btn btn-primary",
                           attrs: {
-                            to: { path: "/autos", query: { id: clientAuto.id } }
+                            to: {
+                              path: "/autos/" + clientAuto.id + "/update",
+                              params: { id: clientAuto.id }
+                            }
                           }
                         },
                         [_vm._v("Обновить")]
@@ -35709,7 +35738,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"](_routes__WEBPACK_IMPORTED_MODULE_2__["default"]),
   components: {
-    'clients-autos-table': _components_ClientsAutosTable__WEBPACK_IMPORTED_MODULE_3__["default"]
+    'clients-autos-table': _components_ClientsAutosTable__WEBPACK_IMPORTED_MODULE_3__["default"] //'buttons-toolbar-create' : VueButtonsToolbarCreate,
+
   }
 });
 

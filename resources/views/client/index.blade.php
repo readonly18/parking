@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div id="app">
-{{--    <clients-autos-table></clients-autos-table>--}}
-    <router-view></router-view>
+    <transition name = "slide">
+        <router-view></router-view>
+    </transition>
 </div>
 @endsection

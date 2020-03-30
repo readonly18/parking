@@ -11,5 +11,6 @@ const  app = new Vue({
     router: new VueRouter(routes),
     components : {
         'clients-autos-table' : VueClientsAutosTable,
+        //'buttons-toolbar-create' : VueButtonsToolbarCreate,
     }
 });

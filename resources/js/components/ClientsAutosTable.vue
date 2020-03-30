@@ -12,7 +12,6 @@
             </div>
         </div>
         <br>
-
         <table class="table table-striped">
             <thead>
             <tr>
@@ -29,8 +28,8 @@
                 <td> {{ clientAuto.model }} </td>
                 <td> {{ clientAuto.plate_number }} </td>
                 <div class="btn-toolbar" role="toolbar">
-                    <td> <router-link :to="{path: '/autos', query: {id: clientAuto.id}}" class="btn btn-primary">Обновить</router-link> </td>
-                    <td> <button v-on:click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
+                    <td> <router-link :to="{path: `/autos/${clientAuto.id}/update`, params: {id: clientAuto.id}}" class="btn btn-primary">Обновить</router-link> </td>
+                    <td> <button @click="deleteClientAuto(clientAuto.id)" type="button" class="btn btn-danger">Удалить</button> </td>
                 </div>
             </tr>
             </tbody>
