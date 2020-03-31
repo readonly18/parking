@@ -68,11 +68,13 @@ class ClientController extends Controller
         return view('client.create');
     }
 
-    public function postClientWithAutos(Request $request)
+    public function postClientWithAuto(Request $request)
     {
         $this->validateRequest($request);
         $this->createClient($request);
 
-        return redirect()->route('home');
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }
