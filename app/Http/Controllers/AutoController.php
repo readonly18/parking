@@ -34,31 +34,59 @@ class AutoController extends Controller
 
     private function validatePutRequest(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+//        $validator = Validator::make($request->all(), [
+//            'auto.client_id'     => 'required|max:10|exists:clients,id',
+//            'auto.id'            => 'required|max:10|exists:autos,id',
+//            'client.surname'     => 'required | between: 3, 255',
+//            'client.name'        => 'required | between: 3, 255',
+//            'client.patronymic'  => 'required | between: 3, 255',
+//            'client.gender'      => 'required | in:male,female',
+//            'client.address'     => 'max:255',
+//            'auto.brand'         => 'required | max:255',
+//            'auto.model'         => 'required | max:255',
+//            'auto.color'         => 'required | max:255',
+//            'auto.parking_status'=> 'required | in:0,1',
+//            'phone'              =>  [
+//                                    'required',
+//                                    'digits:11',
+//                                    Rule::unique('clients')->ignore($request['client']['id'])
+//                                ],
+//            'plate_number'       =>  [
+//                                    'required',
+//                                    'max:7',
+//                                    'regex:/^[A-Z]{3}-[0-9]{3}/',
+//                                    Rule::unique('autos')->ignore($request['auto']['id'])
+//                                ]
+//        ])
+//        ->validate();
+        Validator::make($request->client, [
+            'id'          => 'required|max:10|exists:clients,id',
+            'surname'     => 'required | between: 3, 255',
+            'name'        => 'required | between: 3, 255',
+            'patronymic'  => 'required | between: 3, 255',
+            'gender'      => 'required | in:male,female',
+            'address'     => 'max:255',
+            'phone'       =>  [
+                                'required',
+                                'digits:11',
+                                Rule::unique('clients')->ignore($request->client['id'])
+                              ],
+        ])->validate();
+        Validator::make($request->auto, [
             'client_id'     => 'required|max:10|exists:clients,id',
-            'auto_id'       => 'required|max:10|exists:autos,id',
-            'surname'       => 'required | between: 3, 255',
-            'name'          => 'required | between: 3, 255',
-            'patronymic'    => 'required | between: 3, 255',
-            'gender'        => 'required | in:male,female',
-            'address'       => 'max:255',
+            'id'            => 'required|max:10|exists:autos,id',
             'brand'         => 'required | max:255',
             'model'         => 'required | max:255',
             'color'         => 'required | max:255',
             'parking_status'=> 'required | in:0,1',
-            'phone'         =>  [
-                                    'required',
-                                    'digits:11',
-                                    Rule::unique('clients')->ignore($request->client_id)
-                                ],
-            'plate_number'  =>  [
+            'plate_number'       =>  [
                                     'required',
                                     'max:7',
                                     'regex:/^[A-Z]{3}-[0-9]{3}/',
-                                    Rule::unique('autos')->ignore($request->auto_id)
+                                    Rule::unique('autos')->ignore($request->auto['id'])
                                 ]
-        ])
-        ->validate();
+        ])->validate();
+
     }
 
     private function validatePostRequest(Request $request)
@@ -88,30 +116,30 @@ class AutoController extends Controller
 
     private function updateAutoWithClient(Request $request)
     {
-        $address = $request->has('address') ? $request->address : null;
+        $address = isset($request->client['address']) ? $request->client['address'] : null;
         DB::table('clients')
-            ->where('id', $request->client_id)
+            ->where('id', $request->auto['client_id'])
             ->update([
-                        'surname'       => $request->surname,
-                        'name'          => $request->name,
-                        'patronymic'    => $request->patronymic,
-                        'gender'        => $request->gender,
-                        'phone'         => $request->phone,
+                        'surname'       => $request->client['surname'],
+                        'name'          => $request->client['name'],
+                        'patronymic'    => $request->client['patronymic'],
+                        'gender'        => $request->client['gender'],
+                        'phone'         => $request->client['phone'],
                         'address'       => $address
                     ]);
         DB::table('autos')
-            ->where('id', $request->auto_id)
+            ->where('id', $request->auto['id'])
             ->update([
-                        'brand'             => $request->brand,
-                        'model'             => $request->model,
-                        'color'             => $request->color,
-                        'plate_number'      => $request->plate_number,
-                        'parking_status'    => $request->parking_status,
-                        'client_id'         => $request->client_id
+                        'brand'             => $request->auto['brand'],
+                        'model'             => $request->auto['model'],
+                        'color'             => $request->auto['color'],
+                        'plate_number'      => $request->auto['plate_number'],
+                        'parking_status'    => $request->auto['parking_status'],
+                        'client_id'         => $request->auto['client_id']
                     ]);
     }
 
-    public function delete($id)
+    public function deleteAuto($id)
     {
         if(!$this->validateAutoId($id))
             return response('Bad', 400);
@@ -146,20 +174,28 @@ class AutoController extends Controller
         $this->validatePutRequest($request);
         $this->updateAutoWithClient($request);
 
-        return redirect()->route('home');
+        return response()->json([
+            'status' => 'ok'
+        ]);return redirect()->route('home');
     }
 
-    public function validatePlateNumber($plateNumber)
+    public function validatePlateNumber(Request $request)
     {
-        $validator = Validator::make(['plate_number' => $plateNumber], [
-            'plate_number'  => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
+        if(!$request->has('value'))
+            return response()->json([
+                'status'        => 'error'
+            ])
+                             ->header('Status', 400);
+
+        $validator = Validator::make(['plate_number' => $request->value], [
+                'plate_number'  =>  'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
         ]);
 
         if($validator->fails())
             return response()->json([
-                'status' => 'failed'
+                'status'        => 'failed'
             ])
-                             ->header('Status', 422);
+                ->header('Status', 422);
         else return response()->json([
             'status' => 'ok'
         ]);

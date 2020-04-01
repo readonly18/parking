@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ClientController extends Controller
 {
@@ -73,17 +74,23 @@ class ClientController extends Controller
         ]);
     }
 
-    public function validatePhone($phone)
+    public function validatePhone(Request $request)
     {
-        $validator = Validator::make(['phone' => $phone], [
-            'phone'            => 'required | digits:11 | unique:clients,phone',
+        if(!$request->has('value'))
+            return response()->json([
+                'status'        => 'error'
+            ])
+                             ->header('Status', 400);
+
+        $validator = Validator::make(['phone' => $request->value], [
+                'phone'         =>  'required | digits:11 | unique:clients,phone',
         ]);
 
         if($validator->fails())
             return response()->json([
-                'status' => 'failed'
+                'status'        => 'failed'
             ])
-                             ->header('Status', 422);
+                              ->header('Status', 422);
         else return response()->json([
             'status' => 'ok'
         ]);
