@@ -26,7 +26,7 @@
             </tbody>
         </table>
             <vue-pagination :pagination = "clientsAutos"
-                            @paginate = "getPagination()"
+                            @paginate = "getPagination(clientsAutos.current_page)"
                             :offset = "15">
             </vue-pagination>
     </div>
@@ -51,15 +51,15 @@
             }
         },
         created() {
-            this.getPagination();
+            this.getPagination(this.clientsAutos.current_page);
         },
         components: {
             VuePagination,
             VueButtonsToolbar
         },
         methods: {
-            getPagination() {
-                axios.get(`/clients/autos?page=${this.clientsAutos.current_page}`)
+            getPagination(currentPage) {
+                axios.get(`/clients/autos?page=${currentPage}`)
                     .then((response) => {
                         this.clientsAutos = response.data;
                     })

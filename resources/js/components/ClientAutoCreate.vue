@@ -120,19 +120,19 @@
                     required,
                     minLength: minLength(3),
                     maxLength: maxLength(255),
-                    alpha
+                    //alpha
                 },
                 name: {
                     required,
                     minLength: minLength(3),
                     maxLength: maxLength(255),
-                    alpha
+                    //alpha
                 },
                 patronymic: {
                     required,
                     minLength: minLength(3),
                     maxLength: maxLength(255),
-                    alpha
+                    //alpha
                 },
                 gender: {
                     required,
@@ -148,7 +148,7 @@
                     async isUnique(value) {
                         if(value === '')
                             return true;
-                        return await axios.get(`/clients/phones/${value}`)
+                        return await axios.get(`/clients/phones/validate?value=${value}`)
                             .then((response) => {
                                 return true;
                             })
@@ -179,7 +179,7 @@
                     async isUnique(value) {
                         if(value === '')
                             return true;
-                        return await axios.get(`/autos/plate_numbers/${value}`)
+                        return await axios.get(`/autos/plate_numbers/validate?value=${value}`)
                             .then((response) => {
                                 return true;
                             })
@@ -195,7 +195,7 @@
             }
         },
         methods: {
-            postClientAuto($v) {
+            postClientAuto() {
                 axios.post('/clients', this.body)
                     .then((response) => {
                         this.$router.push('/');
