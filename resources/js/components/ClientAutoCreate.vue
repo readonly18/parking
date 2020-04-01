@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Новый клиент</h3>
-        <form @submit.prevent="postClientAuto($v)">
+        <form @submit.prevent="postClientAuto()">
             <button type="submit" :disabled="$v.$invalid" class="btn btn-info">Создать</button>
             <hr>
             <div class="client">
@@ -27,7 +27,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Пол</span>
                     </div>
-                    <select v-model.lazy="$v.body.gender.$model" :class="{'custom-select': !$v.body.gender.$invalid, 'custom-select is-invalid': $v.body.gender.$invalid}" name="gender">
+                    <select v-model.lazy="$v.body.gender.$model" :class="{'custom-select': !$v.body.gender.$error, 'custom-select is-invalid': $v.body.gender.$error}" name="gender">
                         <option disabled value="">Выберите один из вариантов</option>
                         <option value="male">Мужской</option>
                         <option value="female">Женский</option>
@@ -77,7 +77,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Припаркован</span>
                     </div>
-                    <select v-model="$v.body.parking_status.$model" :class="{'custom-select': !$v.body.parking_status.$invalid, 'custom-select is-invalid': $v.body.parking_status.$invalid}" name="parking_status">
+                    <select v-model.lazy="$v.body.parking_status.$model" :class="{'custom-select': !$v.body.parking_status.$error, 'custom-select is-invalid': $v.body.parking_status.$error}" name="parking_status">
                         <option disabled value="">Выберите один из вариантов</option>
                         <option value="1">Да</option>
                         <option value="0">Нет</option>
@@ -139,7 +139,18 @@
                     required,
                     maxLength: maxLength(11),
                     minLength: minLength(11),
-                    numeric
+                    numeric,
+                    async isUnique(value) {
+                        if(value === '')
+                            return true;
+                        return await axios.get(`/clients/phones/${value}`)
+                            .then((response) => {
+                                return true;
+                            })
+                            .catch(() => {
+                                return false;
+                            });
+                    }
                 },
                 address: {
                     maxLength: maxLength(255),
@@ -160,6 +171,17 @@
                     required,
                     maxLength: maxLength(7),
                     validFormat: val => /^[A-Z]{3}-[0-9]{3}/.test(val),
+                    async isUnique(value) {
+                        if(value === '')
+                            return true;
+                        return await axios.get(`/autos/plate_numbers/${value}`)
+                            .then((response) => {
+                                return true;
+                            })
+                            .catch(() => {
+                                return false;
+                            });
+                    }
                 },
                 parking_status: {
                     required,
@@ -168,13 +190,13 @@
             }
         },
         methods: {
-            postClientAuto() {
+            postClientAuto($v) {
                 axios.post('/clients', this.body)
                     .then((response) => {
                         this.$router.push('/');
                     })
-                    .catch(() => {
-                        console.log('failed to post new client');
+                    .catch((error) => {
+                        console.log(`failed to post new client. ${error.response.data.message}`);
                     });
             },
         },

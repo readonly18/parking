@@ -122,12 +122,6 @@ class AutoController extends Controller
         return response('Success', 200);
     }
 
-    public function getCreatePage()
-    {
-        $clientsPhones = DB::table('clients')->pluck('phone');
-        return view("auto.create", ['clientsPhones' => $clientsPhones]);
-    }
-
     public function postAuto(Request $request)
     {
         $this->validatePostRequest($request);
@@ -144,13 +138,7 @@ class AutoController extends Controller
         $clientId = DB::table('autos')->where('id', '=', $id)->pluck('client_id')->first();
         $autoClient['client'] = DB::table('clients')->where('id', '=', $clientId)->get();
         $autoClient['auto'] = DB::table('autos')->where('id', '=', $id)->get();
-        //return view('auto.update');
         return response()->json($autoClient);
-    }
-
-    public function getUpdatePage()
-    {
-        return view('auto.update');
     }
 
     public function putAutoWithClient(Request $request, $id)
@@ -159,5 +147,21 @@ class AutoController extends Controller
         $this->updateAutoWithClient($request);
 
         return redirect()->route('home');
+    }
+
+    public function validatePlateNumber($plateNumber)
+    {
+        $validator = Validator::make(['plate_number' => $plateNumber], [
+            'plate_number'  => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
+        ]);
+
+        if($validator->fails())
+            return response()->json([
+                'status' => 'failed'
+            ])
+                             ->header('Status', 422);
+        else return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }

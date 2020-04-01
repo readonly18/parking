@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -55,17 +56,11 @@ class ClientController extends Controller
                             ->join('autos', 'clients.id', '=', 'autos.client_id')
                             ->paginate(15);
         return response()->json($clientsAutos);
-        //return view('client.index', ['clientsAutos' => $clientsAutos]);
     }
 
     public function getPaginationPage()
     {
         return view('client.index');
-    }
-
-    public function getCreatePage()
-    {
-        return view('client.create');
     }
 
     public function postClientWithAuto(Request $request)
@@ -74,6 +69,22 @@ class ClientController extends Controller
         $this->createClient($request);
 
         return response()->json([
+            'status' => 'ok'
+        ]);
+    }
+
+    public function validatePhone($phone)
+    {
+        $validator = Validator::make(['phone' => $phone], [
+            'phone'            => 'required | digits:11 | unique:clients,phone',
+        ]);
+
+        if($validator->fails())
+            return response()->json([
+                'status' => 'failed'
+            ])
+                             ->header('Status', 422);
+        else return response()->json([
             'status' => 'ok'
         ]);
     }
