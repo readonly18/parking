@@ -109,6 +109,9 @@
                     plate_number: '',
                     parking_status: ''
                 },
+                state: {
+                    gender: ['female', 'male'],
+                }
             };
         },
         validations: {
@@ -133,7 +136,9 @@
                 },
                 gender: {
                     required,
-                    validFormat: val => /^female$|^male$/.test(val),
+                    inList(value) {
+                        return this.state.gender.includes(value);
+                    },
                 },
                 phone: {
                     required,
