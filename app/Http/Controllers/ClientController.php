@@ -81,6 +81,14 @@ class ClientController extends Controller
         return view('client.index');
     }
 
+    public function getPhones()
+    {
+        $phones = DB::table('clients')->pluck('phone');
+        return response()->json([
+            'status'            => 'ok',
+            'phones'            => $phones
+        ]);
+    }
     public function postClientWithAuto(Request $request)
     {
         $this->validatePostRequest($request);

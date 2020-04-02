@@ -27,13 +27,13 @@ class AutoController extends Controller
 
     private function createAuto(Request $request)
     {
-        $id = $this->getOwnerId($request->phone);
+        $id = $this->getOwnerId($request->client['phone']);
         DB::table('autos')->insert([
-            'brand'         =>    $request->brand,
-            'model'         =>    $request->model,
-            'color'         =>    $request->color,
-            'plate_number'  =>    $request->plate_number,
-            'parking_status'=>    $request->parking_status,
+            'brand'         =>    $request->auto['brand'],
+            'model'         =>    $request->auto['model'],
+            'color'         =>    $request->auto['color'],
+            'plate_number'  =>    $request->auto['plate_number'],
+            'parking_status'=>    $request->auto['parking_status'],
             'client_id'     =>    $id
         ]);
     }
@@ -95,12 +95,12 @@ class AutoController extends Controller
     private function validatePostRequest(Request $request)
     {
         $this->validate($request, [
-            'phone'         => 'required | digits:11 | exists:clients,phone',
-            'brand'         => 'required | max:255',
-            'model'         => 'required | max:255',
-            'color'         => 'required | max:255',
-            'plate_number'  => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
-            'parking_status'=> 'required | in:0,1',
+            'client.phone'  =>    'required | digits:11 | exists:clients,phone',
+            'auto.brand'    =>    'required | max:255',
+            'auto.model'    =>    'required | max:255',
+            'auto.color'    =>    'required | max:255',
+            'auto.plate_number'  => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
+            'auto.parking_status'=> 'required | in:0,1',
         ]);
     }
 
@@ -111,8 +111,12 @@ class AutoController extends Controller
         ]);
 
         if($validator->fails())
-            return false;
-        else return true;
+            return response()->json([
+            'status'        => 'error'
+            ])               ->header('Status', 400);
+        else return response()->json([
+            'status'        => 'ok'
+        ]);
     }
 
     public function validatePlateNumber(Request $request)
@@ -140,7 +144,9 @@ class AutoController extends Controller
     public function deleteAuto($id)
     {
         if(!$this->validateAutoId($id))
-            return response('Bad', 400);
+            return response()->json([
+                'status'    => 'failed'
+            ]);
 
         $clientId = DB::table('autos')->where('id', '=', $id)
                                             ->pluck('client_id')
@@ -148,7 +154,10 @@ class AutoController extends Controller
         DB::table('autos')->where('id', '=', $id)
                                 ->delete();
         $this->checkClient($clientId);
-        return response('Success', 200);
+
+        return response()->json([
+            'status'        => 'ok'
+        ]);
     }
 
     public function postAuto(Request $request)
@@ -156,7 +165,9 @@ class AutoController extends Controller
         $this->validatePostRequest($request);
         $this->createAuto($request);
 
-        return redirect()->route('home');
+        return response()->json([
+            'status'        => 'ok'
+        ]);
     }
 
     public function getAutoWithClientData($id)
