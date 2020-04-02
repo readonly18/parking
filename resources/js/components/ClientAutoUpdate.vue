@@ -126,13 +126,6 @@
         },
         created() {
             this.getData(this.$route.params.id);
-            // if(typeof(data) === 'object') {
-            //     console.log(data);
-            //     this.body.client = data.client[0];
-            //     this.body.auto = data.auto[0];
-            //     this.state.phone = data.client[0].phone;
-            //     this.state.plateNumber = data.auto[0].plate_number;
-            // }
         },
         validations: {
             body: {
@@ -185,14 +178,17 @@
                 auto: {
                     model: {
                         required,
+                        minLength: minLength(1),
                         maxLength: maxLength(255),
                     },
                     brand: {
                         required,
+                        minLength: minLength(1),
                         maxLength: maxLength(255),
                     },
                     color: {
                         required,
+                        minLength: minLength(1),
                         maxLength: maxLength(255),
                     },
                     plate_number: {
@@ -220,7 +216,6 @@
         },
         methods: {
             updateClientAuto() {
-                //this.body.client and this.body.auto. Change validate method in php.
                 axios.put(`/autos/${this.state.autoId}`, this.body)
                     .then((response) => {
                         this.$router.push('/');

@@ -10,7 +10,29 @@ use Illuminate\Validation\Rule;
 
 class ClientController extends Controller
 {
-    private function validateRequest(Request $request)
+    private function createClient(Request $request)
+    {
+        $address = $request->has('address') ? $request->address : null;
+        $id = DB::table('clients')->insertGetId([
+            'surname'           => $request->surname,
+            'name'              => $request->name,
+            'patronymic'        => $request->patronymic,
+            'gender'            => $request->gender,
+            'phone'             => $request->phone,
+            'address'           => $address
+        ]);
+
+        DB::table('autos')->insert([
+            'brand'             => $request->brand,
+            'model'             => $request->model,
+            'color'             => $request->color,
+            'plate_number'      => $request->plate_number,
+            'parking_status'    => $request->parking_status,
+            'client_id'         => $id
+        ]);
+    }
+
+    private function validatePostRequest(Request $request)
     {
         $this->validate($request, [
             'surname'           => 'required | between: 3, 255',
@@ -27,35 +49,30 @@ class ClientController extends Controller
         ]);
     }
 
-    private function createClient(Request $request)
+    public function validatePhone(Request $request)
     {
-        $address = $request->has('address') ? $request->address : null;
-        $id = DB::table('clients')->insertGetId(
-            [
-                'surname'       => $request->surname,
-                'name'          => $request->name,
-                'patronymic'    => $request->patronymic,
-                'gender'        => $request->gender,
-                'phone'         => $request->phone,
-                'address'       => $address
-            ]
-        );
+        if(!$request->has('value'))
+            return response()->json([
+            'status'            => 'error'
+            ])               ->header('Status', 400);
 
-        DB::table('autos')->insert([
-            'brand'             => $request->brand,
-            'model'             => $request->model,
-            'color'             => $request->color,
-            'plate_number'      => $request->plate_number,
-            'parking_status'    => $request->parking_status,
-            'client_id'         => $id
+        $validator = Validator::make(['phone' => $request->value], [
+            'phone'             => 'required | digits:11 | unique:clients,phone',
+        ]);
+
+        if($validator->fails())
+            return response()->json([
+            'status'            => 'failed'
+            ])               ->header('Status', 422);
+        else return response()->json([
+            'status'            => 'ok'
         ]);
     }
 
     public function getPaginationData()
     {
-        $clientsAutos = DB::table('clients')
-                            ->join('autos', 'clients.id', '=', 'autos.client_id')
-                            ->paginate(15);
+        $clientsAutos = DB::table('clients')->join('autos', 'clients.id', '=', 'autos.client_id')
+                                                  ->paginate(15);
         return response()->json($clientsAutos);
     }
 
@@ -66,33 +83,11 @@ class ClientController extends Controller
 
     public function postClientWithAuto(Request $request)
     {
-        $this->validateRequest($request);
+        $this->validatePostRequest($request);
         $this->createClient($request);
 
         return response()->json([
-            'status' => 'ok'
-        ]);
-    }
-
-    public function validatePhone(Request $request)
-    {
-        if(!$request->has('value'))
-            return response()->json([
-                'status'        => 'error'
-            ])
-                             ->header('Status', 400);
-
-        $validator = Validator::make(['phone' => $request->value], [
-                'phone'         =>  'required | digits:11 | unique:clients,phone',
-        ]);
-
-        if($validator->fails())
-            return response()->json([
-                'status'        => 'failed'
-            ])
-                              ->header('Status', 422);
-        else return response()->json([
-            'status' => 'ok'
+            'status'            => 'ok'
         ]);
     }
 }

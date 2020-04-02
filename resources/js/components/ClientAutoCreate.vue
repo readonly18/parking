@@ -162,14 +162,17 @@
                 },
                 model: {
                     required,
+                    minLength: minLength(1),
                     maxLength: maxLength(255),
                 },
                 brand: {
                     required,
+                    minLength: minLength(1),
                     maxLength: maxLength(255),
                 },
                 color: {
                     required,
+                    minLength: minLength(1),
                     maxLength: maxLength(255),
                 },
                 plate_number: {
