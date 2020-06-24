@@ -26,8 +26,8 @@
         <td> {{ $clientAuto->name }} </td>
         <td> {{ $clientAuto->model }} </td>
         <td> {{ $clientAuto->plate_number }} </td>
-        <td> <button type="button" class="btn btn-primary" id="update-{{ $clientAuto->id }}">Изменить</button> </td>
-        <td> <button type="button" class="btn btn-danger" id="delete-{{ $clientAuto->id }}">Удалить</button> </td>
+        <td> <a type="button" class="btn btn-primary" id="update-{{ $clientAuto->id }}" href="autos/{{ $clientAuto->id }}">Изменить</a> </td>
+        <td> <a type="button" class="btn btn-danger" id="delete-{{ $clientAuto->id }}" href="autos/delete/{{ $clientAuto->id }}">Удалить</a> </td>
     </tr>
 @endforeach
   </tbody>

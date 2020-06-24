@@ -88,7 +88,7 @@ class AutoController extends Controller
 
     private function updateAutoWithClient(Request $request)
     {
-        $address = $request->has('address') ? $request->address : null; 
+        $address = $request->has('address') ? $request->address : null;
         DB::table('clients')
             ->where('id', $request->client_id)
             ->update([
@@ -115,11 +115,12 @@ class AutoController extends Controller
     {
         if(!$this->validateAutoId($id))
             return response('Bad', 400);
-            
+
         $clientId = DB::table('autos')->where('id', '=', $id)->pluck('client_id')->first();
         DB::table('autos')->where('id', '=', $id)->delete();
         $this->checkClient($clientId);
-        return response('Success', 200);
+        return redirect()->route('home');
+        //return response('Success', 200);
     }
 
     public function getCreatePage()
@@ -140,7 +141,7 @@ class AutoController extends Controller
     {
         if(!$this->validateAutoId($id))
             return redirect()->route('home');
-        
+
         $clientId = DB::table('autos')->where('id', '=', $id)->pluck('client_id')->first();
         $autoClient['client'] = DB::table('clients')->where('id', '=', $clientId)->get();
         $autoClient['auto'] = DB::table('autos')->where('id', '=', $id)->get();

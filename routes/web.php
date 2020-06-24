@@ -22,4 +22,4 @@ Route::get('autos/{id}', 'AutoController@getAutoWithClient');
 Route::post('autos', 'AutoController@postAuto');
 Route::post('clients', 'ClientController@postClientWithAutos');
 Route::put('autos/{id}', 'AutoController@putAutoWithClient');
-Route::delete('autos/{id}', 'AutoController@Delete');
+Route::get('autos/delete/{id}', 'AutoController@Delete');
