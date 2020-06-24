@@ -20,14 +20,14 @@ class ClientController extends Controller
             'brand'             => 'required | max:255',
             'model'             => 'required | max:255',
             'color'             => 'required | max:255',
-            'plate_number'      => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
+            'plate_number'      => 'required | max:16 | regex:/^[0-9]{16}/ | unique:autos,plate_number',
             'parking_status'    => 'required | in:0,1',
         ]);
     }
 
     private function createClient(Request $request)
     {
-        $address = $request->has('address') ? $request->address : null; 
+        $address = $request->has('address') ? $request->address : null;
         $id = DB::table('clients')->insertGetId(
             [
                 'surname'       => $request->surname,
@@ -63,7 +63,7 @@ class ClientController extends Controller
     }
 
     public function postClientWithAutos(Request $request)
-    {   
+    {
         $this->validateRequest($request);
         $this->createClient($request);
 

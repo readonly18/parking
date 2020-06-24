@@ -53,8 +53,8 @@ class AutoController extends Controller
                                 ],
             'plate_number'  =>  [
                                     'required',
-                                    'max:7',
-                                    'regex:/^[A-Z]{3}-[0-9]{3}/',
+                                    'max:16',
+                                    'regex:/^[0-9]{16}/',
                                     Rule::unique('autos')->ignore($request->auto_id)
                                 ]
         ])
@@ -68,7 +68,7 @@ class AutoController extends Controller
             'brand'         => 'required | max:255',
             'model'         => 'required | max:255',
             'color'         => 'required | max:255',
-            'plate_number'  => 'required | max:7 | regex:/^[A-Z]{3}-[0-9]{3}/ | unique:autos,plate_number',
+            'plate_number'  => 'required | max:16 | regex:/^[0-9]{16}/ | unique:autos,plate_number',
             'parking_status'=> 'required | in:0,1',
         ]);
     }

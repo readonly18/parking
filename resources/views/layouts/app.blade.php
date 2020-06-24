@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Парковка</title>
+    <title>Запись пациентов к врачу</title>
      <!-- Scripts -->
       <script
           src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -21,7 +21,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Парковка</a>
+        <a class="navbar-brand" href="/">Запись пациентов к врачу</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>

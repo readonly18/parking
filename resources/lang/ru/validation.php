@@ -172,7 +172,7 @@ return [
         'password_confirmation' => 'Подтверждение пароля',
         'city'                  => 'Город',
         'country'               => 'Страна',
-        'address'               => 'Адрес',
+        'address'               => 'Специальность',
         'phone'                 => 'Телефон',
         'mobile'                => 'Моб. номер',
         'age'                   => 'Возраст',
@@ -195,7 +195,7 @@ return [
         'brand'                 => 'Марка',
         'model'                 => 'Модель',
         'color'                 => 'Цвет',
-        'plate_number'          => 'Гос номер',
-        'parking_status'        => 'Статус парковки'
+        'plate_number'          => 'Полис',
+        'parking_status'        => 'Первичный прием'
     ],
 ];

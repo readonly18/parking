@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h3>Новый автомобиль</h3>
+<h3>Новый пациент</h3>
 <form action = "autos" method = "POST" enctype="multipart/form-data">
     @csrf
     <button type="submit" class="btn btn-info">Создать</button>
@@ -15,10 +15,10 @@
             </span>
         @endif
     </select>
-    <small id="phoneHelp" class="form-text text-muted">номер клиента (79021234567)</small>
+    <small id="phoneHelp" class="form-text text-muted">номер врача (79021234567)</small>
     <div class="input-group input-group-sm mb-3{{ $errors->has('brand') ? ' has-error' : '' }}">
         <div class="input-group-prepend">
-            <span class="input-group-text">Марка </span>
+            <span class="input-group-text">Фамилия </span>
         </div>
         <input type="text" name = "brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
         @if ($errors->has('brand'))
@@ -29,7 +29,7 @@
     </div>
     <div class="input-group input-group-sm mb-3{{ $errors->has('model') ? ' has-error' : '' }}">
         <div class="input-group-prepend">
-            <span class="input-group-text">Модель </span>
+            <span class="input-group-text">Имя </span>
         </div>
         <input type="text" name = "model" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
         @if ($errors->has('model'))
@@ -37,10 +37,10 @@
             <strong>{{ $errors->first('model') }}</strong>
             </span>
         @endif
-    </div> 
+    </div>
     <div class="input-group input-group-sm mb-3{{ $errors->has('color') ? ' has-error' : '' }}">
         <div class="input-group-prepend">
-            <span class="input-group-text">Цвет кузова </span>
+            <span class="input-group-text">Отчество </span>
         </div>
         <input type="text" name = "color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
         @if ($errors->has('color'))
@@ -51,7 +51,7 @@
     </div>
     <div class="input-group input-group-sm mb-3{{ $errors->has('plate_number') ? ' has-error' : '' }}">
         <div class="input-group-prepend">
-            <span class="input-group-text">Гос номер</span>
+            <span class="input-group-text">Полис</span>
         </div>
         <input type="text" name = "plate_number" class="form-control" aria-describedby="plateHelp" required>
         @if ($errors->has('plate_number'))
@@ -60,10 +60,10 @@
             </span>
         @endif
     </div>
-    <small id="plateHelp" class="form-text text-muted">например, ABC-123</small>
+    <small id="plateHelp" class="form-text text-muted">16 символов</small>
     <div class="input-group mb-3{{ $errors->has('parking_status') ? ' has-error' : '' }}">
         <div class="input-group-prepend">
-            <label class="input-group-text" for="parking_status">Припаркован</label>
+            <label class="input-group-text" for="parking_status">Первичный осмотр</label>
         </div>
         <select class="custom-select" name="parking_status" required>
             <option value="1">Да</option>
